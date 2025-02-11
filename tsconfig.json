@@ -10,9 +10,10 @@
         // "isolatedModules": true,
         // "verbatimModuleSyntax": true,
         /* Strictness */
-        // "strict": true,
+        "strict": true,
         // "noUncheckedIndexedAccess": true,
         // "noImplicitOverride": true,
+        "noImplicitAny": true,
         /* If transpiling with TypeScript: */
         // "module": "NodeNext",
         "outDir": "./dist",
