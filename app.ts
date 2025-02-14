@@ -45,10 +45,18 @@ function GetTitles(author: string, status: boolean): string[];
 
 function GetTitles(author: string, status?: boolean) {
     if (status !== undefined) {
-        return movieArr.filter(movie => movie.status == status)
+        return movieArr.filter(movie => {
+            return movie.author == author
+        }).map(movie => movie.title)
+
     }
     else {
-        return movieArr.filter(movie => movie.author == author)
+        return movieArr.filter(movie => {
+            return movie.author == author
+        }).map(movie => movie.title)
     }
     // return [""];
 }
+
+let title1: string[] = GetTitles("ankit 4");
+console.log(title1[0])

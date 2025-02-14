@@ -32,5 +32,8 @@
         // "lib": [
         //     "es2022","DOM"
         // ]
+        "target": "ES5",
+        "module": "CommonJS",
+        "sourceMap": true
     }
 }
