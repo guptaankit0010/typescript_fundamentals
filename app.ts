@@ -24,3 +24,31 @@ let movieName: string = "A new hopsse";
 
 let movieRating: string | number = GetRating(movieName);
 console.log(movieRating)
+
+// function overloads in TS
+const movieArr = [
+    {
+        "title": "movie 1", "author": "ankit 1", "status": true
+    },
+    {
+        "title": "movie 1", "author": "ankit 2", "status": false
+    },
+    {
+        "title": "movie 1", "author": "ankit 3", "status": true
+    },
+    {
+        "title": "movie 1", "author": "ankit 4", "status": false
+    }
+]
+function GetTitles(author: string): string[];
+function GetTitles(author: string, status: boolean): string[];
+
+function GetTitles(author: string, status?: boolean) {
+    if (status !== undefined) {
+        return movieArr.filter(movie => movie.status == status)
+    }
+    else {
+        return movieArr.filter(movie => movie.author == author)
+    }
+    // return [""];
+}
