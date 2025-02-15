@@ -25,6 +25,8 @@ let movieName: string = "A new hopsse";
 let movieRating: string | number = GetRating(movieName);
 console.log(movieRating)
 
+
+
 // function overloads in TS
 const movieArr = [
     {
@@ -60,3 +62,174 @@ function GetTitles(author: string, status?: boolean) {
 
 let title1: string[] = GetTitles("ankit 4");
 console.log(title1[0])
+
+// Function types
+
+let idGenerator: (name: string, id: number) => string;
+idGenerator = (name: string, id: number) => {
+    return `${name}_${id}`;
+}
+
+
+
+// Interface
+interface Movie {
+    "title": string,
+    "author": string,
+    "status": boolean,
+    "releaseYear"?: number,
+    "logReview"?: (review: string) => void
+}
+
+
+const movieArrI: Movie[] = [
+    {
+        "title": "movie 1", "author": "ankit 1", "status": true
+    },
+    {
+        "title": "movie 1", "author": "ankit 2", "status": false
+    },
+    {
+        "title": "movie 1", "author": "ankit 3", "status": true
+    },
+    {
+        "title": "movie 1", "author": "ankit 4", "status": false
+    }
+]
+
+const PrintMovieInfoI = (movie: Movie, cast?: string[]) => {
+    console.log(`Title = ${movie.title}`);
+
+    if (movie.releaseYear) {
+        console.log(`Release year = ${movie.releaseYear}`)
+    }
+
+    if (cast?.length) {
+        for (const name of cast) {
+            console.log(`cast : ${name}`)
+        }
+    }
+
+}
+
+const movieI: Movie = {
+    "title": "movie I", "author": "ankit I", "status": false,
+    "logReview": (review: string): void => { console.log(`Review: ${review}`) }
+}
+
+if (movieI.logReview)
+    movieI.logReview("Test review")
+
+PrintMovieInfoI(movieI);
+const castMembersI = ["henI", "catI"];
+PrintMovieInfoI(movieI, castMembersI);
+
+
+// Interface for function types
+
+interface ReviewLogger {
+    (review: string): void
+}
+
+interface Movie2 {
+    title: string,
+    author: string,
+    status: boolean,
+    releaseYear?: number,
+    logReview2?: ReviewLogger
+}
+
+
+const movieArrI2: Movie2[] = [
+    {
+        "title": "movie 1", "author": "ankit 1", "status": true
+    },
+    {
+        "title": "movie 1", "author": "ankit 2", "status": false
+    },
+    {
+        "title": "movie 1", "author": "ankit 3", "status": true
+    },
+    {
+        "title": "movie 1", "author": "ankit 4", "status": false
+    }
+]
+
+
+const movieI2: Movie2 = {
+    "title": "movie I", "author": "ankit I", "status": false,
+    logReview2: (review: string): void => { console.log(`Review: ${review}`) }
+}
+
+if (movieI2.logReview2)
+    movieI2.logReview2("test review 2")
+
+
+// Extending interfaces
+
+interface Movie3 {
+    title: string,
+    director: string
+}
+
+interface MovieReview extends Movie3 {
+    review: number,
+    logReview: LogReview
+}
+
+interface LogReview {
+    (review: string): void
+}
+
+const review1: MovieReview = {
+    title: "interface movvie 1",
+    director: "ankit",
+    review: 5,
+    logReview: (review: string) => {
+        console.log(review)
+    }
+
+}
+
+
+
+
+// Classes
+
+class Video {
+    // private title: string = '';
+    // year: number = 2024;
+
+    // constructor(title: string, year: number) {
+    //     console.log('creating a new video')
+    //     this.title = title;
+    //     this.year = year;
+    // }
+
+    private _producer = '';
+
+    get producer(): string {
+        return this._producer.toUpperCase();
+    }
+
+    set producer(name: string) {
+        this._producer = name;
+    }
+
+    constructor(private title: string, public year: number) {
+        console.log('creating a new video')
+        // this.title = title;
+        // this.year = year;
+    }
+
+    printItem(): void {
+        console.log(`${this.title} released in ${this.year}`)
+    }
+}
+
+let vid: Video = new Video('calls movie 2', 2034);
+// vid.title = "class movie";
+vid.printItem()
+vid.producer = "ankit";
+let prod = vid.producer;
+console.log(prod)
