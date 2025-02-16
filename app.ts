@@ -216,7 +216,7 @@ class Video {
         this._producer = name;
     }
 
-    constructor(private title: string, public year: number) {
+    constructor(protected title: string, public year: number) {
         console.log('creating a new video')
         // this.title = title;
         // this.year = year;
@@ -227,9 +227,77 @@ class Video {
     }
 }
 
+
+class Documentary extends Video {
+    constructor(title: string, year: number, public subject: string) {
+        super(title, year)
+    }
+
+    printItem(): void {
+        super.printItem();
+        console.log(`${this.title} released in ${this.year}`)
+    }
+}
+
 let vid: Video = new Video('calls movie 2', 2034);
 // vid.title = "class movie";
 vid.printItem()
 vid.producer = "ankit";
 let prod = vid.producer;
 console.log(prod)
+
+let doc: Documentary = new Documentary('calls movie 3', 2134, "test subject");
+// vid.title = "class movie";
+doc.printItem()
+doc.producer = "ankitdoc";
+let prodDoc = doc.producer;
+console.log(prodDoc)
+
+
+// abstract class
+
+abstract class VideoAB {
+    // private title: string = '';
+    // year: number = 2024;
+
+    // constructor(title: string, year: number) {
+    //     console.log('creating a new video')
+    //     this.title = title;
+    //     this.year = year;
+    // }
+
+    private _producer = '';
+
+    get producer(): string {
+        return this._producer.toUpperCase();
+    }
+
+    set producer(name: string) {
+        this._producer = name;
+    }
+
+    constructor(protected title: string, public year: number) {
+        console.log('creating a new video')
+        // this.title = title;
+        // this.year = year;
+    }
+
+    printItem(): void {
+        console.log(`${this.title} released in ${this.year}`)
+    }
+    abstract printProducer(): void;
+}
+
+class Documentary1 extends VideoAB {
+    constructor(title: string, year: number, public subject: string) {
+        super(title, year)
+    }
+
+    printProducer(): void {
+        console.log(this.producer)
+    }
+}
+
+let doc2: VideoAB = new Documentary1("abstract vid 1", 8976, "abstract subject")
+doc2.producer = "abstract producer";
+doc2.printProducer()
